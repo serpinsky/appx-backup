@@ -1,7 +1,13 @@
 # Appx-Backup
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-blue.svg)](https://github.com/serpinsky/appx-backup)
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6.svg)](https://github.com/serpinsky/appx-backup)
+[![Repo Size](https://img.shields.io/github/repo-size/serpinsky/appx-backup.svg)](https://github.com/serpinsky/appx-backup)
+[![Last Commit](https://img.shields.io/github/last-commit/serpinsky/appx-backup.svg)](https://github.com/serpinsky/appx-backup)
+
 A PowerShell script to create a signed offline backup (`.appx` package) of any Windows Store (UWP/AppX) application.  
-It packs the app folder, generates a self‑signed certificate (using pure .NET – no dependency on the `Cert:` drive), signs the package, and saves both the `.appx` and the `.cer` file.
+It packs the app folder, generates a self‑signed certificate (using pure .NET), signs the package, and saves both the `.appx` and the `.cer` file.
 
 ---
 
@@ -41,22 +47,12 @@ All settings are automatically saved and restored on next launch.
 
 ### Parameters
 
-| Parameter | Description | Example |
-|-----------|-------------|---------|
-| `-WSAppPath` | Full path to the application folder inside `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\YourAppFolder"` |
+| Parameter | Description |
+|-----------|-------------|
+| `-WSAppPath` | Full path to the application folder inside `C:\Program Files\WindowsApps` |
 | `-WSAppOutputPath` | Destination folder for `.appx` and `.cer` files | `"C:\BackupFolder"` |
-| `-WSTools` | Path to the x64 tools folder of the Windows SDK (contains `MakeAppx.exe`, `SignTool.exe`) | `"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"` |
-| `-GUI` | (Switch) Launches the graphical interface instead of console mode | `-GUI` |
-
-### Examples
-- **Console**  
-  ```powershell
-  .\Appx-Backup.ps1 -WSAppPath "C:\Program Files\WindowsApps\Microsoft.RemoteDesktop_10.2.4012.0_x64__8wekyb3d8bbwe" -WSAppOutputPath "D:\AppBackups" -WSTools "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"
-  ```
-- **GUI**  
-  ```powershell
-  .\Appx-Backup.ps1 -GUI
-  ```
+| `-WSTools` | Path to the x64 tools folder of the Windows SDK (contains `MakeAppx.exe`, `SignTool.exe`) |
+| `-GUI` | (Switch) Launches the graphical interface instead of console mode |
 
 ### What happens behind the scenes
 1. Reads `AppxManifest.xml` to get the app name and publisher.
@@ -82,7 +78,7 @@ All settings are automatically saved and restored on next launch.
 
 ### Troubleshooting
 - **`MakeAppx.exe` not found** – verify that `-WSTools` points to the correct SDK `x64` folder.
-- **Certificate creation fails** – ensure you run PowerShell as Administrator. The script now uses pure .NET, so the `Cert:` drive is not required.
+- **Certificate creation fails** – ensure you run PowerShell as Administrator. The script uses pure .NET, so the `Cert:` is not required.
 - **SignTool error** – check that the `.pfx` file was created (temporary) and that the password `password` is used.
 - **Installation error 0x800B0109** – this means the certificate was not installed into the **Local Machine\Trusted Root Certification Authorities** store. Re‑install the certificate as described above.
 
@@ -124,27 +120,17 @@ All settings are automatically saved and restored on next launch.
 
 ### Параметры
 
-| Параметр | Описание | Пример |
-|----------|----------|--------|
-| `-WSAppPath` | Полный путь к папке приложения в `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\YourAppFolder"` |
-| `-WSAppOutputPath` | Папка для сохранения файлов `.appx` и `.cer` | `"C:\BackupFolder"` |
-| `-WSTools` | Путь к папке x64 утилит Windows SDK (содержит `MakeAppx.exe`, `SignTool.exe`) | `"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"` |
-| `-GUI` | (Ключ) Запускает графический интерфейс вместо консольного режима | `-GUI` |
+| Параметр | Описание |
+|----------|----------|
+| `-WSAppPath` | Полный путь к папке приложения в `C:\Program Files\WindowsApps` |
+| `-WSAppOutputPath` | Папка для сохранения файлов `.appx` и `.cer` |
+| `-WSTools` | Путь к папке x64 утилит Windows SDK (содержит `MakeAppx.exe`, `SignTool.exe`) |
+| `-GUI` | (Ключ) Запускает графический интерфейс вместо консольного режима |
 
-### Примеры
-- **Консоль**  
-  ```powershell
-  .\Appx-Backup.ps1 -WSAppPath "C:\Program Files\WindowsApps\YourAppFolder" -WSAppOutputPath "C:\BackupFolder" -WSTools "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"
-  ```
-- **GUI**  
-  ```powershell
-  .\Appx-Backup.ps1 -GUI
-  ```
-
-### Что происходит внутри
+### Последовательность работы скрипта
 1. Чтение `AppxManifest.xml` для получения имени приложения и издателя.
 2. Упаковка папки приложения в сжатый `.appx` с помощью `MakeAppx.exe`.
-3. Создание самоподписанного сертификата через **.NET** (без использования диска `Cert:`).
+3. Создание самоподписанного сертификата через **.NET** (без использования `Cert:`).
 4. Экспорт сертификата в `.cer` (открытый ключ) и `.pfx` (закрытый ключ + пароль `password`).
 5. Подпись `.appx`‑пакета с помощью `SignTool.exe`.
 6. Удаление временных файлов, остаются только `.appx` и `.cer`.
