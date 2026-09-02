@@ -43,8 +43,8 @@ All settings are automatically saved and restored on next launch.
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| `-WSAppPath` | Full path to the application folder inside `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\Microsoft.RemoteDesktop_10.2.4012.0_x64__8wekyb3d8bbwe"` |
-| `-WSAppOutputPath` | Destination folder for `.appx` and `.cer` files | `"C:\Backup"` |
+| `-WSAppPath` | Full path to the application folder inside `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\YourAppFolder"` |
+| `-WSAppOutputPath` | Destination folder for `.appx` and `.cer` files | `"C:\BackupFolder"` |
 | `-WSTools` | Path to the x64 tools folder of the Windows SDK (contains `MakeAppx.exe`, `SignTool.exe`) | `"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"` |
 | `-GUI` | (Switch) Launches the graphical interface instead of console mode | `-GUI` |
 
@@ -126,15 +126,15 @@ All settings are automatically saved and restored on next launch.
 
 | Параметр | Описание | Пример |
 |----------|----------|--------|
-| `-WSAppPath` | Полный путь к папке приложения в `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\Microsoft.RemoteDesktop_10.2.4012.0_x64__8wekyb3d8bbwe"` |
-| `-WSAppOutputPath` | Папка для сохранения файлов `.appx` и `.cer` | `"C:\Backup"` |
+| `-WSAppPath` | Полный путь к папке приложения в `C:\Program Files\WindowsApps` | `"C:\Program Files\WindowsApps\YourAppFolder"` |
+| `-WSAppOutputPath` | Папка для сохранения файлов `.appx` и `.cer` | `"C:\BackupFolder"` |
 | `-WSTools` | Путь к папке x64 утилит Windows SDK (содержит `MakeAppx.exe`, `SignTool.exe`) | `"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"` |
 | `-GUI` | (Ключ) Запускает графический интерфейс вместо консольного режима | `-GUI` |
 
 ### Примеры
 - **Консоль**  
   ```powershell
-  .\Appx-Backup.ps1 -WSAppPath "C:\Program Files\WindowsApps\Microsoft.RemoteDesktop_10.2.4012.0_x64__8wekyb3d8bbwe" -WSAppOutputPath "D:\AppBackups" -WSTools "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"
+  .\Appx-Backup.ps1 -WSAppPath "C:\Program Files\WindowsApps\YourAppFolder" -WSAppOutputPath "C:\BackupFolder" -WSTools "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64"
   ```
 - **GUI**  
   ```powershell
